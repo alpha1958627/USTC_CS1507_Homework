@@ -33,6 +33,6 @@ def Getnews(i):
 # with open('100.html', 'w+', encoding= 'utf-8') as f:
 #         f.write(resp.text)
 
-for i in range (0,3):
+for i in range (0,100):
     Getnewsoutline(i)
 
