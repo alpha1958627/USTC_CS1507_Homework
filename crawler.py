@@ -32,7 +32,7 @@ def Getnews(i):
 # resp.encoding = 'utf-8'
 # with open('100.html', 'w+', encoding= 'utf-8') as f:
 #         f.write(resp.text)
-
-for i in range (0,100):
-    Getnewsoutline(i)
+if __name__ == '__main__': 
+    for i in range (0,100):
+        Getnewsoutline(i)
 

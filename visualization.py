@@ -5,40 +5,46 @@ from streamlit_echarts import st_pyecharts
 import pandas as pd
 import numpy as np
 import time
+from streamlit_extras.colored_header import colored_header
 
 # st.set_page_config(layout="wide")
-Institution_lst = ['工程科学学院','先进技术','管理学院']
-data = np.random.randn(2,3)
-data2 = np.ones((2,3))
-df = pd.DataFrame(data,columns=Institution_lst,index=['字数','图片数'])
-df2 =pd.DataFrame(data2,columns=Institution_lst,index=['字数1','图片数1'])
-df = pd.concat([df2,df], axis=0 ) #参数axis=0表示上下合并，1表示左右合并，ignore_index=True表示忽略原来的索引
-
+Institution_lst=['工程科学学院','先进技术','管理学院','化学与材料科学学院','大数据学院','中国科学院','少年班学院','地球和空间科学学院','公共事务学院','环境科学与工程','近代力学','信息','微电子学院','火灾科学国家重点实验室','计算机学院','核科学技术学院','同步辐射','生医部','热科学','精密仪器','物理学院','化学学院','马克思主义','金融','科技传播','微尺度','人文','数学学院','天文','网络空间安全']
+Institution=['工程科学学院','先进技术','管理学院','化学与材料科学学院','大数据学院','中国科学院','少年班学院','地球和空间科学学院','公共事务学院','环境科学与工程','近代力学','信息','微电子学院','火灾科学国家重点实验室','计算机学院','核科学技术学院','同步辐射','生医部','热科学','精密仪器','物理学院','化学学院','马克思主义','金融','科技传播','微尺度','人文','数学学院','天文','网络空间安全']
+    # Define function to read CSV and return DataFrame
+def read_data(i):
+    df = pd.read_csv(f'./data_ins/{Institution_lst[i]}.csv')
+    return df
 if __name__ == '__main__':
-    st.title('USTC_press release situation visualization')
-    st.header('梁家华 PB21050971')
-chart_data = pd.DataFrame(
-    np.random.randn(20, 3),
-    columns=['a', 'b', 'c'])
+   
+    # # Streamlit widgets automatically run the script from top to bottom. Since
+    # # this button is not connected to any other logic, it just causes a plain
+    # # rerun.
+    # st.button("Re-run")
 
-st.line_chart(df)
 
-progress_bar = st.sidebar.progress(0)
-status_text = st.sidebar.empty()
-last_rows = np.random.randn(1, 1)
-chart = st.line_chart(last_rows)
+    # Read CSV files into DataFrames
+    df1 = read_data(1)
+    df2 = read_data(2)
+    df3 = read_data(3)
+    df4 = read_data(4)
 
-for i in range(1, 101):
-    new_rows = last_rows[-1, :] + np.random.randn(5, 1).cumsum(axis=0)
-    status_text.text("%i%% Complete" % i)
-    chart.add_rows(new_rows)
-    progress_bar.progress(i)
-    last_rows = new_rows
-    time.sleep(0.05)
+    # Concatenate the four DataFrames into one large DataFrame
+    df = pd.concat([df1,df2,df3,df4], ignore_index=True)
+    df = df[['title','time','pay']]
+    # print(df)
 
-progress_bar.empty()
 
-# Streamlit widgets automatically run the script from top to bottom. Since
-# this button is not connected to any other logic, it just causes a plain
-# rerun.
-st.button("Re-run")
+        # Display the headings and the DataFrame
+
+    st.title('USTC_CS1507 Homework1')
+    
+    colored_header(
+    label=" A news crawling script",
+    description="PB21050971梁家华",
+    color_name="orange-80",
+)
+    
+    st.write('# Displaying data from all colleges')
+    st.write(df)
+
+# streamlit run a:\xx\py\xuexi\Homework1\USTC_CS1507_Homework\visualization.py 
