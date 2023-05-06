@@ -47,4 +47,4 @@ if __name__ == '__main__':
     st.write('# Displaying data from all colleges')
     st.write(df)
 
-# streamlit run a:\xx\py\xuexi\Homework1\USTC_CS1507_Homework\visualization.py 
+# streamlit run a:\xx\py\xuexi\Homework1\USTC_CS1507_Homework\homepage.py 

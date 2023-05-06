@@ -9,13 +9,12 @@ headers = {
 }
 # to analyse the news we get
 Institution_lst=['工程科学学院','先进技术','管理学院','化学与材料科学学院','大数据学院','中国科学院','少年班学院','地球和空间科学学院','公共事务学院','环境科学与工程','近代力学','信息','微电子学院','火灾科学国家重点实验室','计算机学院','核科学技术学院','同步辐射','生医部','热科学','精密仪器','物理学院','化学学院','马克思主义','金融','科技传播','微尺度','人文','数学学院','天文','网络空间安全']
-titlelst = []#记录目录里所有的标题
-hreflst=[]#记录目录里所有新闻链接，注意排除无效链接（http://xgyth.ustc.edu.cn
-timelst=[]#记录新闻发布时间
-wordlst =[]#记录文字数
-piclst =[]#记录图片数
-news_href_lst=[]#记录每篇新闻的地址
-paylst=[]#记录稿费
+titlelst = []#Record all the headings in the directory
+hreflst=[]#Keep a record of all news links in the directory, taking care to exclude invalid links (http://xgyth.ustc.edu.cn
+wordlst =[]#Record the number of words
+piclst =[]#Record the number of pictures
+news_href_lst=[]#Keep a record of all news links in the directory
+paylst=[]#Record the fee
 class Institution:
     def __init__(self, name):
         self.name = name
@@ -37,7 +36,7 @@ class Institution:
 
 #-----main-----
 if __name__ == '__main__': 
-#获取所有大标题和新闻具体链接
+#Get specific links to all headlines and news
     for i in range (0,100):
         with open(f'./catalog/{i}.html', 'r', encoding='utf-8') as f:
             content = f.read()
@@ -61,15 +60,15 @@ if __name__ == '__main__':
 
     # print(len(news_href_lst))
 
-    # ---------------爬取所有新闻链接--------------
-    # for i in range(0,len(news_href_lst)):
-    #      if news_href_lst:
-    #         resp = requests.get(news_href_lst[i], headers=headers)
-    #         print (resp.status_code)
-    #         resp.encoding = 'utf-8'
-    #         with open(f'./news/news_{i}.html', 'w+', encoding= 'utf-8') as f:
-    #             f.write(resp.text)
-    # -----计算稿费
+    # ---------------Crawl all news links--------------
+    for i in range(0,len(news_href_lst)):
+         if news_href_lst:
+            resp = requests.get(news_href_lst[i], headers=headers)
+            print (resp.status_code)
+            resp.encoding = 'utf-8'
+            with open(f'./news/news_{i}.html', 'w+', encoding= 'utf-8') as f:
+                f.write(resp.text)
+    # -----Calculate the manuscript fee
     # print(len(news_href_lst))
     for i in range(0,len(news_href_lst)-1):
         num_word,num_pic=Counter(f'./news/news_{i}.html')
@@ -83,7 +82,7 @@ if __name__ == '__main__':
         paylst.append(pay)
 
 
-    #---------建立每一个学院的类，包括新闻链接、标题---------
+    #---------Establish each college class, including news links, headlines---------
     ins_class_lst = [Institution(i) for i in Institution_lst]#类
     for title in titlelst:
         if not title:
