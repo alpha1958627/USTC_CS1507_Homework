@@ -76,7 +76,7 @@ if __name__ == '__main__':
         if num_pic > 4:
             pay+=20
         if (i+14)%14 == 0.0:
-            paylst.append(0) 
+            paylst.append(0)  
         paylst.append(pay)
 
     #---------Establish each college class, including news links, headlines and save---------

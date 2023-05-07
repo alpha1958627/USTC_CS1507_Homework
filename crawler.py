@@ -1,7 +1,7 @@
 import requests
 import fake_useragent
 import bs4
-
+ 
 # to get the news we need
 
 headers = {
