@@ -34,11 +34,11 @@ def Overview():
     # Use Plotly to create a dynamic histogram
 
     fig = px.bar(df_pivot, x=df_pivot.index, y=df_pivot.columns,
-                title='每个学院的累计费用随着日期推移的值', 
+                title='所有学院的稿费对比', 
                 range_x=[pd.Timestamp('2022-05-01'), pd.Timestamp('2023-05-02')], 
                 range_y=[0, df_pivot.max().max()],
                 height=700,
-                labels={'value': '累计费用', 'index': '日期'})
+                labels={'value': '累计稿费', 'index': '日期'})
 
     st.plotly_chart(fig)
 
