@@ -15,6 +15,10 @@ wordlst =[]#Record the number of words
 piclst =[]#Record the number of pictures
 news_href_lst=[]#Keep a record of all news links in the directory
 paylst=[]#Record the fee
+timelst=[]
+def read_data(i):
+    df = pd.read_csv(f'./data_ins/{Institution_lst[i]}.csv')
+    return df
 class Institution:
     def __init__(self, name):
         self.name = name
@@ -47,12 +51,7 @@ if __name__ == '__main__':
                 hreflst.append(href.get('href'))
                 titlelst.append(href.get('title'))
                 time = str(href.get('href')) 
-                timelst.append(time[1:10])
-            # print(hreflst)
-            # print(len(hreflst))
-            # print(titlelst[10])
-            # print(timelst)
-            # print(len(timelst))
+                timelst.append(time[1:10])      
 
     for i in range(0,len(hreflst)):
         if hreflst[i]!='http://xgyth.ustc.edu.cn':
@@ -69,7 +68,6 @@ if __name__ == '__main__':
             with open(f'./news/news_{i}.html', 'w+', encoding= 'utf-8') as f:
                 f.write(resp.text)
     # -----Calculate the manuscript fee
-    # print(len(news_href_lst))
     for i in range(0,len(news_href_lst)-1):
         num_word,num_pic=Counter(f'./news/news_{i}.html')
         pay = 30 
@@ -81,8 +79,7 @@ if __name__ == '__main__':
             paylst.append(0) 
         paylst.append(pay)
 
-
-    #---------Establish each college class, including news links, headlines---------
+    #---------Establish each college class, including news links, headlines and save---------
     ins_class_lst = [Institution(i) for i in Institution_lst]#类
     for title in titlelst:
         if not title:
